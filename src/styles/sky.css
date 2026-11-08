@@ -1,0 +1,104 @@
+.app {
+  position: relative;
+  min-height: 100vh;
+  min-height: 100svh;
+  isolation: isolate;
+}
+
+/* ---- Painted sky behind the canvases ----------------------------------- */
+
+.backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+  background:
+    radial-gradient(120% 75% at 50% 118%, rgba(108, 46, 128, 0.55) 0%, rgba(52, 24, 92, 0.32) 38%, transparent 68%),
+    radial-gradient(70% 50% at 88% 6%, rgba(64, 44, 140, 0.34), transparent 70%),
+    radial-gradient(60% 45% at 8% 22%, rgba(24, 64, 128, 0.28), transparent 72%),
+    linear-gradient(180deg, #050816 0%, #090f2b 34%, #141340 66%, #26164d 88%, #2e1850 100%);
+}
+
+.backdrop__veil {
+  position: absolute;
+  inset: -15% -25%;
+  background:
+    radial-gradient(38% 28% at 30% 38%, rgba(124, 92, 224, 0.13), transparent 70%),
+    radial-gradient(34% 26% at 72% 56%, rgba(60, 176, 206, 0.08), transparent 70%),
+    radial-gradient(30% 22% at 55% 20%, rgba(255, 140, 200, 0.06), transparent 70%);
+  animation: veil-drift 46s ease-in-out infinite alternate;
+}
+
+.backdrop__horizon {
+  position: absolute;
+  left: -15%;
+  right: -15%;
+  bottom: -20vh;
+  height: 56vh;
+  background: radial-gradient(50% 60% at 50% 72%, rgba(255, 196, 120, 0.2), rgba(230, 150, 110, 0.07) 46%, transparent 72%);
+  animation: horizon-breathe 9s ease-in-out infinite;
+}
+
+/* Warmer glow that rises behind the finale. */
+.backdrop__warmth {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(70% 45% at 50% 108%, rgba(255, 190, 120, 0.22), transparent 70%),
+    radial-gradient(60% 40% at 50% 46%, rgba(242, 220, 173, 0.06), transparent 70%);
+  opacity: 0;
+  transition: opacity 5s var(--ease-soft) 1.5s;
+}
+
+.app[data-scene='finale'] .backdrop__warmth {
+  opacity: 1;
+}
+
+@keyframes veil-drift {
+  from {
+    transform: translate3d(-2%, 0, 0) rotate(0deg);
+  }
+  to {
+    transform: translate3d(3%, -2%, 0) rotate(2deg);
+  }
+}
+
+@keyframes horizon-breathe {
+  0%,
+  100% {
+    opacity: 0.72;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+/* ---- Canvas layers ------------------------------------------------------ */
+
+.sky {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100vh;
+  /* Largest viewport: the canvases do not resize as mobile toolbars slide. */
+  height: 100lvh;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.sky__layer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .backdrop__veil,
+  .backdrop__horizon {
+    animation: none;
+  }
+}

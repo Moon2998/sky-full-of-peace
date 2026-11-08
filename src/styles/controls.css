@@ -1,0 +1,124 @@
+/* ---- Buttons ------------------------------------------------------------ */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.65rem;
+  min-height: 48px;
+  border: 0;
+  background: none;
+  font-family: var(--font-sans);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+.btn__icon {
+  width: 18px;
+  height: 18px;
+  flex: none;
+}
+
+.btn--primary {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  min-height: 56px;
+  padding: 1rem 2.1rem 1rem 1.8rem;
+  border-radius: 999px;
+  border: 1px solid rgba(242, 220, 173, 0.58);
+  background: linear-gradient(180deg, rgba(242, 220, 173, 0.2), rgba(242, 220, 173, 0.06));
+  color: var(--champagne-50);
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 248, 234, 0.25),
+    0 14px 44px -14px rgba(230, 191, 120, 0.6),
+    0 0 60px -12px rgba(230, 191, 120, 0.38);
+  transition:
+    transform 0.4s var(--ease-out),
+    box-shadow 0.4s var(--ease-soft),
+    border-color 0.4s var(--ease-soft),
+    background-color 0.4s var(--ease-soft);
+}
+
+.btn--primary .btn__icon {
+  color: var(--champagne-200);
+}
+
+.btn--primary::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(110deg, transparent 30%, rgba(255, 248, 234, 0.26) 50%, transparent 70%);
+  transform: translateX(-130%);
+  animation: shimmer 6s var(--ease-in-out) 3.4s infinite;
+}
+
+.btn--primary:hover {
+  transform: translateY(-1px);
+  border-color: rgba(242, 220, 173, 0.9);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 248, 234, 0.35),
+    0 18px 50px -14px rgba(230, 191, 120, 0.75),
+    0 0 80px -10px rgba(230, 191, 120, 0.5);
+}
+
+.btn--primary:active {
+  transform: translateY(0) scale(0.98);
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-130%);
+  }
+  35%,
+  100% {
+    transform: translateX(130%);
+  }
+}
+
+.btn--link {
+  position: relative;
+  padding: 0.75rem 0.75rem;
+  color: var(--champagne-100);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+}
+
+.btn--link::after {
+  content: '';
+  position: absolute;
+  left: 0.75rem;
+  right: 0.75rem;
+  bottom: 0.6rem;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(242, 220, 173, 0.75), transparent);
+  transform: scaleX(0.6);
+  opacity: 0.75;
+  transition:
+    transform 0.5s var(--ease-out),
+    opacity 0.5s var(--ease-soft);
+}
+
+.btn--link:hover::after,
+.btn--link:focus-visible::after {
+  transform: scaleX(1);
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn--primary::before {
+    animation: none;
+  }
+}
+
+@media (forced-colors: active) {
+  .btn--primary {
+    border: 1px solid ButtonText;
+  }
+}
